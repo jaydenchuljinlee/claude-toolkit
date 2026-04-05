@@ -5,7 +5,9 @@
       "Bash(git commit:*)",
       "mcp__claude_ai_Github__get_me",
       "mcp__claude_ai_Github__create_repository",
-      "Bash(gh repo create:*)"
+      "Bash(gh repo create:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)"
     ]
   }
 }
