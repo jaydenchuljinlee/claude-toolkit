@@ -1,0 +1,12 @@
+# Security & Secrets
+.env
+.env.local
+*.pem
+*.key
+secrets.*
+
+# System
+.DS_Store
+
+# Dependencies
+node_modules/
