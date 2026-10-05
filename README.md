@@ -12,12 +12,10 @@ claude-toolkit/
 │   ├── skills/
 │   │   ├── skill-authoring/                 # 스킬/커맨드/에이전트 작성 가이드
 │   │   ├── verification-before-completion/  # 증거 없는 "완료" 주장 금지 (obra/superpowers, MIT)
-│   │   ├── tdd/                             # /tdd — 범용 Red-Green-Refactor (수동 호출)
 │   │   ├── cover-letter-writer/             # 자소서 작성
 │   │   ├── notion-page-organizer/
 │   │   └── notion-page-review/
-│   ├── agents/                # tdd-* (TDD 단계별), cl-* (자소서 단계별)
-│   └── commands/              # git, study, study-save, cover-letter
+│   └── commands/              # git, study, study-save
 └── templates/
     └── spring-kotlin/         # 프로젝트에 복사해서 쓰는 설정
         ├── CLAUDE.md          # 프로젝트 지시문 템플릿
@@ -35,7 +33,7 @@ claude-toolkit/
 | `global/` | 어떤 프로젝트에서도 같은 의미인 것 | 코딩 원칙, 검증 규칙, 개인 워크플로우 |
 | `templates/<스택>/` | 특정 프로젝트 구조나 컨벤션에 묶인 것 | DDD 패키지 구조, Gradle 명령, 도메인 컨벤션 |
 
-이름이 같을 때의 우선순위: 스킬/커맨드는 **전역이**, 서브에이전트는 **프로젝트가** 이깁니다. 그래서 프로젝트 전용 버전은 다른 이름을 씁니다 (전역 `tdd`, 프로젝트 `spring-tdd`).
+이름이 같을 때의 우선순위: 스킬/커맨드는 **전역이**, 서브에이전트는 **프로젝트가** 이깁니다. 그래서 프로젝트 전용 버전은 다른 이름을 씁니다 (예: `~/.claude`의 `tdd` 스킬과 겹치지 않도록 프로젝트용은 `spring-tdd`).
 
 ## 설치
 
@@ -46,9 +44,7 @@ claude-toolkit/
 ./install.sh             # 설치. 기존 파일은 ~/.claude/backups/toolkit-<시각>/ 으로 이동
 ```
 
-레포 파일을 `~/.claude`에 심볼릭 링크로 연결합니다. 레포를 수정하면 바로 반영되므로 `~/.claude`와 레포가 따로 놀지 않습니다.
-
-이전 구조에서 쓰던 `~/.claude/commands/tdd.md`는 `tdd` 스킬과 중복이니 설치 후 지워도 됩니다.
+`global/`에 있는 항목만 `~/.claude`에 심볼릭 링크로 연결합니다. 링크된 항목은 레포를 수정하면 바로 반영됩니다. `~/.claude`에만 있고 레포에 없는 항목은 건드리지 않습니다.
 
 ### 프로젝트 템플릿
 

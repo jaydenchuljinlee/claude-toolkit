@@ -1,5 +1,5 @@
 ---
-description: Spring Kotlin/Java TDD 워크플로우 (Red-Green-Refactor). /spring-tdd 로 직접 호출할 때만 실행한다. 범용 TDD는 전역 /tdd 스킬을 사용한다.
+description: Spring Kotlin/Java TDD 워크플로우 (Red-Green-Refactor). /spring-tdd 로 직접 호출할 때만 실행한다.
 disable-model-invocation: true
 argument-hint: [구현할 기능 설명] e.g. "쿠폰 도메인 서비스 - 쿠폰 적용 로직"
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash(./gradlew *)
