@@ -1,33 +1,9 @@
-# Global Claude Settings
-
+---
+name: skill-authoring
+description: 스킬(.claude/skills), 커맨드(.claude/commands), 에이전트(.claude/agents)를 새로 만들거나 수정할 때 따르는 작성 원칙. SKILL.md, 커맨드 frontmatter, 서브에이전트 정의 파일을 작성·리뷰할 때 사용한다.
 ---
 
-## 🔑 환경변수 및 보안
-
-민감정보는 항상 `~/.claude/.env`에서만 관리한다:
-- `GITHUB_TOKEN`: GitHub MCP 및 gh CLI 인증
-- `NOTION_TOKEN`: Notion MCP 인증
-
-보안 규칙:
-- `.env`, `*.pem`, `*.key`, `secrets.*` 파일은 절대 커밋하지 않는다
-- push/commit 전 반드시 민감파일 staged 여부를 확인한다
-- 토큰/시크릿을 커밋 메시지나 코드에 하드코딩하지 않는다
-
----
-
-## 🧠 맥락 추론 규칙 (모든 커맨드 공통)
-
-owner / repo / branch 등 필수 정보가 명시되지 않은 경우:
-1. $ARGUMENTS에서 직접 추출
-2. 이번 대화의 이전 메시지에서 언급된 값 참조
-3. 로컬 git 상태 또는 MCP로 원격 상태 조회
-4. 위 모두 불명확할 때만 사용자에게 질문
-
-불필요한 질문을 최소화하고, 맥락을 우선 활용한다.
-
----
-
-## 📐 스킬 / 커맨드 / 에이전트 작성 Best Practice
+# 스킬 / 커맨드 / 에이전트 작성 가이드
 
 > 스킬, 커맨드(.claude/commands/), 에이전트(.claude/agents/)를 새로 만들거나
 > 수정할 때는 반드시 아래 원칙을 따른다.
@@ -91,21 +67,21 @@ model: (선택) haiku(빠름/단순) | sonnet(기본) | opus(복잡)
 
 ---
 
-## 📁 커맨드 위치 및 우선순위
+## 📁 위치와 이름 충돌 시 우선순위
 
-| 위치 | 스코프 | 우선순위 |
-|---|---|---|
-| `~/.claude/commands/` | 전역 (모든 프로젝트) | 2순위 |
-| `.claude/commands/` | 해당 프로젝트만 | 1순위 (덮어씀) |
-| `.claude/agents/` | 서브에이전트 정의 | — |
+| 종류 | 전역 | 프로젝트 | 같은 이름일 때 |
+|---|---|---|---|
+| 스킬 / 커맨드 | `~/.claude/skills/`, `~/.claude/commands/` | `.claude/skills/`, `.claude/commands/` | **전역(개인)이 이김**. 스킬이 커맨드보다 우선 |
+| 서브에이전트 | `~/.claude/agents/` | `.claude/agents/` | **프로젝트가 이김** |
+
+→ 프로젝트 전용 스킬/커맨드는 전역과 다른 이름을 쓴다 (예: 전역 `tdd`, 프로젝트 `spring-tdd`).
 
 ---
 
-## 🔤 커밋 메시지 규칙
+## 공식 문서로 확인된 함정
 
-Conventional Commits 형식을 따른다:
-- `feat:` 새 기능
-- `fix:` 버그 수정
-- `docs:` 문서
-- `refactor:` 리팩토링
-- `chore:` 기타 유지보수
+- 에이전트(.claude/agents) frontmatter의 도구 제한 필드는 `tools` 이다 (`allowed-tools` 아님). 도구 이름만 받고 `Bash(git diff *)` 같은 패턴은 받지 않는다.
+- 서브에이전트에서는 `AskUserQuestion`이 제거된다. 사용자 확인이 필요하면 결과에 질문을 담아 메인 대화로 돌려보낸다.
+- 스킬/커맨드의 `allowed-tools`는 "제한"이 아니라 "사전 승인"이다.
+- 무거운 워크플로우(파이프라인, TDD 등)는 `disable-model-invocation: true`로 수동 호출만 허용해 자동 트리거 충돌을 막는다.
+- 새로 만들 때는 커맨드보다 스킬을 선호한다 (보조 파일을 둘 수 있음).

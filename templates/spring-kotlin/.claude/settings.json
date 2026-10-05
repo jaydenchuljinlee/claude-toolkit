@@ -1,0 +1,28 @@
+{
+  "env": {
+    "CLAUDE_QUALITY_GATE_CMD": "./gradlew --quiet ktlintCheck detekt",
+    "CLAUDE_QUALITY_GATE_MAX_BLOCKS": "3"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew compileKotlin*)",
+      "Bash(./gradlew test*)",
+      "Bash(./gradlew ktlintCheck*)",
+      "Bash(./gradlew ktlintFormat*)",
+      "Bash(./gradlew detekt*)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/quality-gate.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  }
+}

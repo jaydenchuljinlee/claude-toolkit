@@ -1,5 +1,6 @@
 ---
-description: Spring Kotlin/Java TDD 워크플로우. Red-Green-Refactor 사이클로 새 기능/도메인 로직 구현 시 사용. "구현해줘", "기능 추가", "TDD로 만들어줘" 등에 트리거.
+description: Spring Kotlin/Java TDD 워크플로우 (Red-Green-Refactor). /spring-tdd 로 직접 호출할 때만 실행한다.
+disable-model-invocation: true
 argument-hint: [구현할 기능 설명] e.g. "쿠폰 도메인 서비스 - 쿠폰 적용 로직"
 allowed-tools: Read, Glob, Grep, Write, Edit, Bash(./gradlew *)
 model: sonnet

@@ -10,3 +10,7 @@ secrets.*
 
 # Dependencies
 node_modules/
+
+# Claude local settings (개인 권한 설정은 커밋하지 않음)
+settings.local.json
+.claude/plans/

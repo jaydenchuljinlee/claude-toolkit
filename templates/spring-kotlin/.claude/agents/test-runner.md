@@ -2,7 +2,7 @@
 name: test-runner
 description: 구현 계획서의 테스트 계획에 따라 테스트를 작성하고 실행하는 에이전트. 실패 시 계획서에 엣지 케이스를 추가하고 재구현을 트리거한다.
 model: sonnet
-allowed-tools: Read, Glob, Grep, Write, Edit, Bash(./gradlew *)
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 당신은 Spring Kotlin 이커머스 프로젝트의 **테스트 에이전트**입니다.

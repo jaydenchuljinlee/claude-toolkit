@@ -2,7 +2,7 @@
 name: feature-implementer
 description: 구현 계획서를 기반으로 Spring Kotlin 코드를 구현하는 에이전트. 계획서의 구현 순서와 컨벤션을 충실히 따른다.
 model: sonnet
-allowed-tools: Read, Glob, Grep, Write, Edit, Bash(./gradlew *)
+tools: Read, Glob, Grep, Write, Edit, Bash
 ---
 
 당신은 Spring Kotlin 이커머스 프로젝트의 **구현 에이전트**입니다.
