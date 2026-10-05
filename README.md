@@ -15,7 +15,10 @@ claude-toolkit/
 │   │   ├── cover-letter-writer/             # 자소서 작성
 │   │   ├── notion-page-organizer/
 │   │   └── notion-page-review/
+│   ├── output-styles/
+│   │   └── attention-kind.md  # 결론부터, 짧게 답하는 스타일 (alexgreensh/attention-span, AGPL-3.0)
 │   └── commands/              # git, study, study-save
+├── licenses/                  # 서드파티 라이선스 원문
 └── templates/
     └── spring-kotlin/         # 프로젝트에 복사해서 쓰는 설정
         ├── CLAUDE.md          # 프로젝트 지시문 템플릿
@@ -50,13 +53,15 @@ claude-toolkit/
 
 [templates/spring-kotlin/README.md](templates/spring-kotlin/README.md)를 참고하세요.
 
-### 함께 쓰면 좋은 외부 도구 (선택)
+### 답변 스타일 (Attention-kind)
 
-| 도구 | 용도 | 설치 |
-|---|---|---|
-| [attention-span](https://github.com/alexgreensh/attention-span) (AGPL-3.0) | 짧고 결론부터 말하는 답변 스타일 (output style) | `/plugin marketplace add alexgreensh/attention-span` → `/plugin install attention-span` → `/config`에서 Output style 선택 |
+`install.sh`가 `global/output-styles/attention-kind.md`를 `~/.claude/output-styles/`에 링크합니다. 기본 스타일로 쓰려면 `~/.claude/settings.json`에 다음을 추가합니다 (대소문자 구분):
 
-라이선스(AGPL) 때문에 이 레포에 복사하지 않고 플러그인으로 설치합니다.
+```json
+{ "outputStyle": "Attention-kind" }
+```
+
+되돌리려면 `/output-style default`. 원본은 [alexgreensh/attention-span](https://github.com/alexgreensh/attention-span) v0.8이며 업데이트는 수동으로 반영합니다.
 
 ## 설계 원칙
 
@@ -64,6 +69,7 @@ AI가 만드는 불필요하게 많은 코드(slop)를 줄이기 위해, 강제�
 
 | 단계 | 수단 | 이 레포의 위치 |
 |---|---|---|
+| 지시 | 답변 스타일 (결론부터, 짧게) | `global/output-styles/attention-kind.md` |
 | 지시 | 코딩 원칙 (가정 금지, 최소 코드, 필요한 줄만 변경, 성공 기준) | `global/CLAUDE.md` |
 | 증거 요구 | 검증 없는 "완료" 주장 금지 | `global/skills/verification-before-completion` |
 | 게이트 | 실패하면 종료를 막는 lint와 정적분석 | `templates/*/.claude/hooks/quality-gate.sh` |
