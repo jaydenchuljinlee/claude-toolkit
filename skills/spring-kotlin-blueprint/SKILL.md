@@ -10,15 +10,15 @@ description: Spring Boot + Kotlin 백엔드에서 새 도메인/API, 계층 구�
 
 ## 1. 본보기 위치 확인 (먼저 실행)
 
-순서대로 시도해서 처음 성공한 곳을 `REPO`로 쓴다.
+본보기는 원격 저장소 `https://github.com/jaydenchuljinlee/hhplus-ecommerce`의 `main` 브랜치다. 로컬에 있는 작업 중인 체크아웃은 쓰지 않는다. 브랜치가 다르거나 수정 중일 수 있기 때문이다.
 
-1. 환경변수 `SPRING_KOTLIN_BLUEPRINT_HOME`
-2. `~/hanghae/hhplus-ecommerce`
-3. 둘 다 없으면 임시 디렉터리에 받는다: `gh repo clone jaydenchuljinlee/hhplus-ecommerce <임시경로> -- --depth 1`
+이 스킬 폴더의 스크립트로 원격 `main`을 캐시에 받는다.
 
-1번이나 2번을 찾았으면 `git -C REPO diff --name-only --diff-filter=U`를 실행한다. 출력이 있으면 병합 충돌이 진행 중이라 소스에 충돌 표시가 섞여 있다. 그 작업 트리는 쓰지 말고 3번으로 받는다.
+```bash
+scripts/fetch-blueprint.sh
+```
 
-이 스킬의 설명은 `origin/main` 기준이다.
+표준 출력의 마지막 줄이 받아 온 경로다. 이 경로를 `REPO`로 쓴다. 실패하면 네트워크나 저장소 접근 문제이니 사용자에게 알리고 멈춘다. 다른 경로를 추측해서 쓰지 않는다.
 
 이 문서와 `references/`의 경로는 아래 약어를 쓴다.
 
@@ -52,4 +52,4 @@ description: Spring Boot + Kotlin 백엔드에서 새 도메인/API, 계층 구�
 
 1. 대상 프로젝트의 빌드와 관련 테스트를 실행한다 (Gradle이면 `./gradlew test --tests "<테스트클래스>"`). 실패하면 원인을 고친다. Mock으로 덮어서 통과시키지 않는다.
 2. 의존 방향을 확인한다: api → usecase → domain, infrastructure → domain. domain 코드가 api나 usecase를 import하면 잘못된 것이다.
-3. 이 스킬의 경로가 깨졌다고 의심되면 `scripts/check-paths.sh [REPO]`를 실행한다. "없음"으로 나온 경로는 본보기에서 이름이 바뀐 것이니, 근처 디렉터리를 직접 찾아 읽고 사용자에게 스킬 갱신이 필요하다고 알린다.
+3. 이 스킬의 경로가 깨졌다고 의심되면 `scripts/check-paths.sh`를 실행한다. 원격 `main`을 받아 와서 확인한다. "없음"으로 나온 경로는 본보기에서 이름이 바뀐 것이니, 근처 디렉터리를 직접 찾아 읽고 사용자에게 스킬 갱신이 필요하다고 알린다.

@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 # 스킬 문서가 가리키는 본보기 경로(`MAIN/...`, `TEST/...`)가 실제로 있는지 확인한다.
-# 사용: check-paths.sh [본보기 저장소 루트]
+# 사용: check-paths.sh [확인할 저장소 루트]   (생략하면 원격 main을 받아 와서 확인)
 set -u
 
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-REPO="${1:-${SPRING_KOTLIN_BLUEPRINT_HOME:-$HOME/hanghae/hhplus-ecommerce}}"
 MAIN="src/main/kotlin/com/hhplus/ecommerce"
 TEST="src/test/kotlin/com/hhplus/ecommerce"
+
+if [ $# -ge 1 ]; then
+  REPO="$1"
+else
+  REPO="$("$SKILL_DIR/scripts/fetch-blueprint.sh" | tail -1)" || exit 2
+fi
 
 if [ ! -d "$REPO/$MAIN" ]; then
   echo "본보기 저장소를 찾을 수 없음: $REPO"
